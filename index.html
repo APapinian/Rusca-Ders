@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rusça Ders 1–2–3 · Gramer & Alıştırmalar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #f5f0e8;
+      --card:      #fffdf7;
+      --navy:      #1a2744;
+      --red:       #c0392b;
+      --gold:      #b8892a;
+      --gold-lt:   #e8c96a;
+      --text:      #2c2416;
+      --muted:     #7a6f5e;
+      --border:    #d9cdb8;
+      --correct:   #2e7d32;
+      --wrong:     #c0392b;
+      --shadow:    0 4px 24px rgba(26,39,68,.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      background: var(--navy);
+      padding: 48px 24px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,.018) 40px,
+        rgba(255,255,255,.018) 41px
+      );
+    }
+    .flag-stripe {
+      display: flex;
+      height: 5px;
+      width: 160px;
+      margin: 0 auto 20px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .flag-stripe span { flex: 1; }
+    .flag-stripe span:nth-child(1) { background: #fff; }
+    .flag-stripe span:nth-child(2) { background: #1a67c8; }
+    .flag-stripe span:nth-child(3) { background: var(--red); }
+
+    header h1 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(1.4rem, 4vw, 2.4rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.5px;
+      line-height: 1.2;
+    }
+    header h1 span { color: var(--gold-lt); }
+    header p {
+      margin-top: 10px;
+      color: rgba(255,255,255,.55);
+      font-size: .85rem;
+      font-weight: 300;
+      letter-spacing: .5px;
+    }
+    .cyrillic-deco {
+      font-family: 'PT Serif', serif;
+      font-size: 5rem;
+      color: rgba(255,255,255,.04);
+      position: absolute;
+      top: 10px; right: 24px;
+      user-select: none;
+      line-height: 1;
+      pointer-events: none; /* HATA DÜZELTME: Tıklamayı engellememesi için */
+    }
+
+    /* ── NAV TABS ────────────────────────────── */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: var(--navy);
+      padding: 0 24px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .tab-btn {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      border: none;
+      background: none;
+      padding: 14px 22px 12px;
+      cursor: pointer;
+      position: relative;
+      transition: color .2s;
+    }
+    .tab-btn.active { color: var(--gold-lt); }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold-lt);
+    }
+    .tab-btn:hover:not(.active) { color: rgba(255,255,255,.7); }
+
+    /* ── MAIN ────────────────────────────────── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── SECTION TITLES ──────────────────────── */
+    .section-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-family: 'PT Serif', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    h3 {
+      font-family: 'PT Serif', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3::before {
+      content: '';
+      display: inline-block;
+      width: 14px; height: 14px;
+      background: var(--gold);
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── CARDS / BOXES ───────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .rule-box {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+    .rule-box strong { color: var(--gold-lt); }
+    .rule-box .rule-steps {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .rule-steps .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: .82rem;
+      color: rgba(255,255,255,.8);
+    }
+    .step-num {
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Unbounded', sans-serif;
+      font-size: .6rem;
+      font-weight: 900;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── VOCABULARY GRID ─────────────────────── */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .vocab-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .vocab-card-head {
+      background: var(--navy);
+      color: var(--gold-lt);
+      font-family: 'Unbounded', sans-serif;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 7px 14px;
+    }
+    .vocab-list { padding: 8px 0; }
+    .vocab-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 14px;
+      font-size: .85rem;
+      border-bottom: 1px solid rgba(0,0,0,.04);
+    }
+    .vocab-item:last-child { border-bottom: none; }
+    .vocab-cyrillic {
+      font-family: 'PT Serif', serif;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .vocab-latin { color: var(--muted); font-style: italic; font-size: .8rem; }
+
+    /* ── CONJUGATION TABLE ───────────────────── */
+    .conj-wrap {
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    table.conj {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      font-size: .88rem;
+    }
+    table.conj thead { background: var(--navy); }
+    table.conj thead th {
+      padding: 11px 16px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--gold-lt);
+      text-align: left;
+    }
+    table.conj tbody tr:nth-child(even) { background: #f9f5ed; }
+    table.conj td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    table.conj tr:last-child td { border-bottom: none; }
+    .td-person { font-weight: 500; color: var(--muted); }
+    .td-cyrillic {
+      font-family: 'PT Serif', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .td-latin { color: var(--muted); font-style: italic; font-size: .82rem; }
+    .td-meaning { color: var(--text); }
+
+    /* ── DIALOGUE TABLE ──────────────────────── */
+    table.dialog {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      font-size: .86rem;
+      margin-bottom: 20px;
+    }
+    table.dialog thead { background: var(--red); }
+    table.dialog thead th {
+      padding: 10px 14px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .58rem;
+      letter-spacing: 1px;
+      color: #fff;
+      text-align: left;
+    }
+    table.dialog tbody tr { transition: background .15s; }
+    table.dialog tbody tr:hover { background: #fdf6e8; }
+    table.dialog td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.dialog tr:last-child td { border-bottom: none; }
+    .td-rus {
+      font-family: 'PT Serif', serif;
+      color: var(--navy);
+      font-size: .92rem;
+    }
+    .td-tr { color: var(--text); }
+
+    .mini-note {
+      background: #fff8e8;
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 16px;
+      font-size: .82rem;
+      color: var(--muted);
+      margin: 12px 0 20px;
+      font-style: italic;
+    }
+    .mini-note strong { color: var(--navy); font-style: normal; }
+
+    /* ── TEST SECTION ────────────────────────── */
+    .quiz-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .quiz-score-box {
+      background: var(--navy);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+    .quiz-score-box span { color: var(--gold-lt); font-size: 1.1rem; }
+
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      transition: border-color .2s;
+    }
+    .question-card.correct { border-color: var(--correct); }
+    .question-card.wrong   { border-color: var(--wrong); }
+
+    .question-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .question-text {
+      font-size: .97rem;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .question-text .rus {
+      font-family: 'PT Serif', serif;
+      font-size: 1.08rem;
+      color: var(--red);
+    }
+
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .option-btn {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-align: left;
+      cursor: pointer;
+      font-size: .88rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--navy);
+      background: #efeae0;
+    }
+    .option-btn.correct-opt {
+      background: #e8f5e9;
+      border-color: var(--correct);
+      color: var(--correct);
+      font-weight: 500;
+    }
+    .option-btn.wrong-opt {
+      background: #ffebee;
+      border-color: var(--wrong);
+      color: var(--wrong);
+    }
+    .option-badge {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .option-btn.correct-opt .option-badge { background: var(--correct); }
+    .option-btn.wrong-opt .option-badge { background: var(--wrong); }
+
+    .feedback {
+      margin-top: 10px;
+      font-size: .83rem;
+      font-weight: 500;
+      display: none;
+    }
+    .feedback.show { display: block; }
+    .feedback.ok  { color: var(--correct); }
+    .feedback.no  { color: var(--wrong); }
+
+    .quiz-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-primary:hover { background: #253668; }
+    .btn-reset {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+    .btn-reset:hover { border-color: var(--navy); color: var(--navy); }
+
+    .result-banner {
+      display: none;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 28px;
+    }
+    .result-banner.show { display: block; }
+    .result-banner .score-big {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--gold-lt);
+      line-height: 1;
+    }
+    .result-banner p { margin-top: 8px; color: rgba(255,255,255,.7); font-size: .88rem; }
+
+    /* ── FILL IN THE BLANK ───────────────────── */
+    .fill-intro { margin-bottom: 24px; }
+    .fill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    .fill-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .fill-sentence {
+      font-size: .97rem;
+      line-height: 2;
+      color: var(--navy);
+    }
+    .fill-sentence .rus-text { font-family: 'PT Serif', serif; font-size: 1rem; }
+    .fill-input {
+      display: inline-block;
+      border: none;
+      border-bottom: 2.5px solid var(--navy);
+      background: transparent;
+      font-family: 'PT Serif', serif;
+      font-size: 1rem;
+      color: var(--navy);
+      width: 150px; /* HATA DÜZELTME: Uzun kelimeler için genişletildi */
+      text-align: center;
+      outline: none;
+      padding: 2px 4px;
+      transition: border-color .2s;
+    }
+    .fill-input:focus { border-color: var(--gold); }
+    .fill-input.correct { border-color: var(--correct); color: var(--correct); }
+    .fill-input.wrong   { border-color: var(--wrong);   color: var(--wrong); }
+
+    .fill-hint {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .fill-hint strong { color: var(--navy); font-style: normal; }
+    .fill-feedback {
+      font-size: .8rem;
+      font-weight: 500;
+      margin-top: 4px;
+      min-height: 18px;
+    }
+    .fill-feedback.ok  { color: var(--correct); }
+    .fill-feedback.no  { color: var(--wrong); }
+
+    .fill-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+    .fill-result {
+      display: none;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 28px;
+    }
+    .fill-result.show { display: block; }
+    .fill-result .score-big {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--gold-lt);
+    }
+    .fill-result p { color: rgba(255,255,255,.7); margin-top: 8px; font-size: .88rem; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 600px) {
+      .vocab-grid { grid-template-columns: 1fr 1fr; }
+      .tab-btn { padding: 14px 12px 12px; font-size: .6rem; }
+      table.conj td, table.conj th { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="cyrillic-deco">Яя</div>
+  <div class="flag-stripe"><span></span><span></span><span></span></div>
+  <h1>Rusça <span>Ders 1–2–3</span></h1>
+  <p>KELİME TEKRARI · FİİL ÇEKİMİ · DİYALOGLAR</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('gramer', this)">📖 Gramer</button>
+  <button class="tab-btn" onclick="switchTab('test', this)">✅ Test</button>
+  <button class="tab-btn" onclick="switchTab('bosluk', this)">✏️ Boşluk Doldurma</button>
+</div>
+
+<main>
+
+  <div id="tab-gramer" class="tab-panel active">
+
+    <div class="section-label">Bölüm 1</div>
+    <h2>Şimdiye Kadar Öğrendiğimiz Kelimeler</h2>
+
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <div class="vocab-card-head">Küçük Grup 1</div>
+        <div class="vocab-list">
+          <div class="vocab-item"><span class="vocab-cyrillic">Метро</span><span class="vocab-latin">metro</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Дела</span><span class="vocab-latin">dela</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Извините</span><span class="vocab-latin">izvinite</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Спасибо</span><span class="vocab-latin">spasibo</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Площадь</span><span class="vocab-latin">ploshad</span></div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-card-head">Küçük Grup 2</div>
+        <div class="vocab-list">
+          <div class="vocab-item"><span class="vocab-cyrillic">Где</span><span class="vocab-latin">gde</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Как</span><span class="vocab-latin">kak</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Это</span><span class="vocab-latin">eto</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Всё</span><span class="vocab-latin">vsyo</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">хорошо</span><span class="vocab-latin">horosho</span></div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-card-head">Küçük Grup 3</div>
+        <div class="vocab-list">
+          <div class="vocab-item"><span class="vocab-cyrillic">вы</span><span class="vocab-latin">vy</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Что</span><span class="vocab-latin">shto</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Вот</span><span class="vocab-latin">vot</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Привет</span><span class="vocab-latin">privet</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">там</span><span class="vocab-latin">tam</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">или</span><span class="vocab-latin">ili</span></div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-card-head">Küçük Grup 4 — İnsanlar</div>
+        <div class="vocab-list">
+          <div class="vocab-item"><span class="vocab-cyrillic">Женщина</span><span class="vocab-latin">zhenshina</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Мужчина</span><span class="vocab-latin">muzhchina</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Мама</span><span class="vocab-latin">mama</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Папа</span><span class="vocab-latin">papa</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Девочка</span><span class="vocab-latin">devochka</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Человек</span><span class="vocab-latin">chelovek</span></div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-card-head">Küçük Grup 5 — Zamirler & Fiil</div>
+        <div class="vocab-list">
+          <div class="vocab-item"><span class="vocab-cyrillic">Яблоко</span><span class="vocab-latin">yabloko</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">ем</span><span class="vocab-latin">yem</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Ты</span><span class="vocab-latin">ty</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">ешь</span><span class="vocab-latin">yesh</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Он / Она</span><span class="vocab-latin">on / ona</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Мы / Они</span><span class="vocab-latin">my / oni</span></div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-card-head">Küçük Grup 6 — Mekanlar & Eşyalar</div>
+        <div class="vocab-list">
+          <div class="vocab-item"><span class="vocab-cyrillic">Дом</span><span class="vocab-latin">dom</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Актёр</span><span class="vocab-latin">aktyor</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Велосипед</span><span class="vocab-latin">velosiped</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Рюкзак</span><span class="vocab-latin">ryukzak</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Ресторан</span><span class="vocab-latin">restoran</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Офис</span><span class="vocab-latin">ofis</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Стол</span><span class="vocab-latin">stol</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Парк</span><span class="vocab-latin">park</span></div>
+          <div class="vocab-item"><span class="vocab-cyrillic">Понимать</span><span class="vocab-latin">ponimat</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Bölüm 2</div>
+    <h2>Fiiller Neden Çekimlenir?</h2>
+
+    <div class="card">
+      <p style="line-height:1.7; font-size:.93rem;">
+        Rusça cümlede <strong>"kim yapıyor?"</strong> sorusunu fiilin üstünde gösterir. Yani fiil, kişiye göre şekil değiştirir.<br><br>
+        Düşün: "Ben yiyorum", "sen yiyorsun", "o yiyor" — Türkçede de ek değişiyor. Rusçada da aynısı var, sadece daha belirgindir.
+      </p>
+    </div>
+
+    <h3>A) "Yemek" fiili: есть</h3>
+    <div class="mini-note">Not: <strong>ем / ешь</strong> aslında bu fiilin kişiye göre değişen hâlidir. Aşağıdaki tablo ezber için yeterli.</div>
+
+    <div class="conj-wrap">
+      <table class="conj">
+        <thead>
+          <tr><th>Kişi</th><th>Rusça</th><th>Latin Okunuşu</th><th>Türkçe Anlam</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-person">Ben</td><td class="td-cyrillic">ем</td><td class="td-latin">yem</td><td class="td-meaning">yiyorum / yerim</td></tr>
+          <tr><td class="td-person">Sen</td><td class="td-cyrillic">ешь</td><td class="td-latin">yesh</td><td class="td-meaning">yiyorsun / yersin</td></tr>
+          <tr><td class="td-person">O</td><td class="td-cyrillic">ест</td><td class="td-latin">yest</td><td class="td-meaning">yiyor / yer</td></tr>
+          <tr><td class="td-person">Biz</td><td class="td-cyrillic">едим</td><td class="td-latin">yedim</td><td class="td-meaning">yiyoruz / yeriz</td></tr>
+          <tr><td class="td-person">Siz</td><td class="td-cyrillic">едите</td><td class="td-latin">yedite</td><td class="td-meaning">yiyorsunuz / yersiniz</td></tr>
+          <tr><td class="td-person">Onlar</td><td class="td-cyrillic">едят</td><td class="td-latin">yedyat</td><td class="td-meaning">yiyorlar / yerler</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>B) "Anlamak" fiili: понимать</h3>
+    <div class="mini-note">Kural: aynı kök kalır (<strong>понима–</strong>), sadece son ek değişir.</div>
+
+    <div class="conj-wrap">
+      <table class="conj">
+        <thead>
+          <tr><th>Kişi</th><th>Rusça</th><th>Latin Okunuşu</th><th>Türkçe Anlam</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-person">Ben</td><td class="td-cyrillic">понимаю</td><td class="td-latin">ponimayu</td><td class="td-meaning">anlıyorum</td></tr>
+          <tr><td class="td-person">Sen</td><td class="td-cyrillic">понимаешь</td><td class="td-latin">ponimayesh</td><td class="td-meaning">anlıyorsun</td></tr>
+          <tr><td class="td-person">O</td><td class="td-cyrillic">понимает</td><td class="td-latin">ponimayet</td><td class="td-meaning">anlıyor</td></tr>
+          <tr><td class="td-person">Biz</td><td class="td-cyrillic">понимаем</td><td class="td-latin">ponimayem</td><td class="td-meaning">anlıyoruz</td></tr>
+          <tr><td class="td-person">Siz</td><td class="td-cyrillic">понимаете</td><td class="td-latin">ponimayete</td><td class="td-meaning">anlıyorsunuz</td></tr>
+          <tr><td class="td-person">Onlar</td><td class="td-cyrillic">понимают</td><td class="td-latin">ponimayut</td><td class="td-meaning">anlıyorlar</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rule-box">
+      <strong>Kısa Ezber Kuralı</strong>
+      <div class="rule-steps">
+        <div class="step"><div class="step-num">1</div><span>Önce zamiri bul: ben, sen, o, biz, siz, onlar.</span></div>
+        <div class="step"><div class="step-num">2</div><span>Sonra fiilin kişiye uygun şeklini seç.</span></div>
+        <div class="step"><div class="step-num">3</div><span>Rusçada fiil tek başına sabit kalmaz; kişi değişince sonu değişir.</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">Bölüm 3</div>
+    <h2>Uzun Diyaloglar</h2>
+
+    <h3>Diyalog 1 — Metroda Tanışma</h3>
+    <div class="conj-wrap">
+      <table class="dialog">
+        <thead><tr><th>Rusça</th><th>Latin Okunuşu</th><th>Türkçe Anlam</th></tr></thead>
+        <tbody>
+          <tr><td class="td-rus">— Привет! Как вы?</td><td class="td-latin">Privet! Kak vy?</td><td class="td-tr">Merhaba! Nasılsınız?</td></tr>
+          <tr><td class="td-rus">— Здравствуйте. Спасибо, хорошо. А вы?</td><td class="td-latin">Zdravstvuyte. Spasibo, horosho. A vy?</td><td class="td-tr">Merhaba. Teşekkür ederim, iyiyim. Siz nasılsınız?</td></tr>
+          <tr><td class="td-rus">— Тоже хорошо. Где метро?</td><td class="td-latin">Tozhe horosho. Gde metro?</td><td class="td-tr">Ben de iyiyim. Metro nerede?</td></tr>
+          <tr><td class="td-rus">— Вот там, рядом s ploshadyu.</td><td class="td-latin">Vot tam, ryadom s ploshadyu.</td><td class="td-tr">Şurada, meydana yakın.</td></tr>
+          <tr><td class="td-rus">— Понятно. Спасибо!</td><td class="td-latin">Ponyatno. Spasibo!</td><td class="td-tr">Anlaşıldı. Teşekkürler!</td></tr>
+          <tr><td class="td-rus">— Пожалуйста!</td><td class="td-latin">Pozhaluysta!</td><td class="td-tr">Rica ederim!</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Diyalog 2 — Parkta ve Restoranda</h3>
+    <div class="conj-wrap">
+      <table class="dialog">
+        <thead><tr><th>Rusça</th><th>Latin Okunuşu</th><th>Türkçe Anlam</th></tr></thead>
+        <tbody>
+          <tr><td class="td-rus">— Я в парке. Ты здесь?</td><td class="td-latin">Ya v parke. Ty zdes?</td><td class="td-tr">Ben parkdayım. Sen burada mısın?</td></tr>
+          <tr><td class="td-rus">— Да, я здесь. Я понимаю.</td><td class="td-latin">Da, ya zdes. Ya ponimayu.</td><td class="td-tr">Evet, ben buradayım. Anlıyorum.</td></tr>
+          <tr><td class="td-rus">— Что это? Это яблоко?</td><td class="td-latin">Shto eto? Eto yabloko?</td><td class="td-tr">Bu ne? Bu elma mı?</td></tr>
+          <tr><td class="td-rus">— Да, это яблоко. Я ем яблоко.</td><td class="td-latin">Da, eto yabloko. Ya yem yabloko.</td><td class="td-tr">Evet, bu elma. Ben elma yiyorum.</td></tr>
+          <tr><td class="td-rus">— Потом ресторан или офис?</td><td class="td-latin">Potom restoran ili ofis?</td><td class="td-tr">Sonra restoran mı ofis mi?</td></tr>
+          <tr><td class="td-rus">— Ресторан. Там мама и папа.</td><td class="td-latin">Restoran. Tam mama i papa.</td><td class="td-tr">Restoran. Orada anne ve baba var.</td></tr>
+          <tr><td class="td-rus">— Хорошо. Мы идём.</td><td class="td-latin">Horosho. My idyom.</td><td class="td-tr">Tamam. Biz gidiyoruz.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mini-note"><strong>Mini tekrar:</strong> ем – ешь – ест / понимаю – понимаешь – понимает</div>
+
+  </div><div id="tab-test" class="tab-panel">
+
+    <div class="quiz-intro">
+      <div>
+        <div class="section-label">Bölüm 2</div>
+        <h2 style="margin-bottom:0; border:none; padding:0;">Çoktan Seçmeli Test</h2>
+      </div>
+      <div class="quiz-score-box">Puan: <span id="quiz-score">0</span> / <span id="quiz-total">0</span></div>
+    </div>
+
+    <div id="quiz-container"></div>
+
+    <div class="quiz-actions">
+      <button class="btn-primary" onclick="checkAll()">Tümünü Kontrol Et</button>
+      <button class="btn-reset" onclick="resetQuiz()">Sıfırla</button>
+    </div>
+
+    <div class="result-banner" id="quiz-result">
+      <div class="score-big" id="quiz-result-score"></div>
+      <p id="quiz-result-msg"></p>
+    </div>
+
+  </div><div id="tab-bosluk" class="tab-panel">
+
+    <div class="fill-intro">
+      <div class="section-label">Bölüm 3</div>
+      <h2>Boşluk Doldurma Alıştırması</h2>
+      <p style="font-size:.88rem; color:var(--muted); margin-top:-8px;">Parantez içindeki ipucuna bakarak boşluğa doğru Rusça kelimeyi yaz.</p>
+    </div>
+
+    <div id="fill-container"></div>
+
+    <div class="fill-actions">
+      <button class="btn-primary" onclick="checkFill()">Kontrol Et</button>
+      <button class="btn-reset" onclick="resetFill()">Sıfırla</button>
+    </div>
+
+    <div class="fill-result" id="fill-result">
+      <div class="score-big" id="fill-result-score"></div>
+      <p id="fill-result-msg"></p>
+    </div>
+
+  </div></main>
+
+<script>
+/* ─── TAB SWITCHING ─────────────────────── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ─── QUIZ DATA ──────────────────────────── */
+const questions = [
+  {
+    q: 'Rusçada "Ben yiyorum" nasıl söylenir?',
+    opts: ['Я ешь', 'Я ем', 'Я ест', 'Я едим'],
+    ans: 1,
+    exp: '"Я ем" — Ben için doğru çekim ем\'dir.'
+  },
+  {
+    q: '"Sen anlıyorsun" cümlesinin doğru Rusçası hangisidir?',
+    opts: ['Ты понимаю', 'Ты понимает', 'Ты понимаешь', 'Ты понимаем'],
+    ans: 2,
+    exp: 'Sen (Ты) için понимать fiili → понимаешь olur.'
+  },
+  {
+    q: 'Rusçada "Nerede?" sorusu hangi kelimedir?',
+    opts: ['Что', 'Как', 'Где', 'Вот'],
+    ans: 2,
+    exp: '"Где" (gde) = nerede.'
+  },
+  {
+    q: '"Спасибо" ne anlama gelir?',
+    opts: ['Merhaba', 'Özür dilerim', 'Teşekkür ederim', 'İyiyim'],
+    ans: 2,
+    exp: 'Спасибо (spasibo) = teşekkür ederim.'
+  },
+  {
+    q: '"Biz anlıyoruz" cümlesinin doğru çekimi hangisidir?',
+    opts: ['Мы понимают', 'Мы понимаем', 'Мы понимаю', 'Мы понимаете'],
+    ans: 1,
+    exp: 'Biz (Мы) için понимать fiili → понимаем.'
+  },
+  {
+    q: '"O yiyor" için doğru çekim hangisidir?',
+    opts: ['Он ем', 'Он едим', 'Он ест', 'Он ешь'],
+    ans: 2,
+    exp: 'O (Он/Она) için есть fiili → ест.'
+  },
+  {
+    q: 'Rusçada "elma" hangi kelimedir?',
+    opts: ['Рюкзак', 'Яблоко', 'Велосипед', 'Площадь'],
+    ans: 1,
+    exp: 'Яблоко (yabloko) = elma.'
+  },
+  {
+    q: '"Привет" ne anlama gelir?',
+    opts: ['İyi günler', 'Nasılsın', 'Merhaba (samimi)', 'Hoşçakal'],
+    ans: 2,
+    exp: 'Привет (privet) = Merhaba (arkadaş arası).'
+  },
+  {
+    q: '"Они понимают" cümlesinin Türkçesi nedir?',
+    opts: ['O anlıyor', 'Biz anlıyoruz', 'Onlar anlıyorlar', 'Siz anlıyorsunuz'],
+    ans: 2,
+    exp: 'Они = onlar; понимают = anlıyorlar.'
+  },
+  {
+    q: '"Хорошо" kelimesinin Latin okunuşu hangisidir?',
+    opts: ['kak', 'privet', 'horosho', 'vsyo'],
+    ans: 2,
+    exp: 'хорошо = horosho (iyi/tamam anlamında).'
+  },
+  {
+    q: '"Вы едите" cümlesinin Türkçesi nedir?',
+    opts: ['Ben yiyorum', 'Onlar yiyor', 'Siz yiyorsunuz', 'Biz yiyoruz'],
+    ans: 2,
+    exp: 'Вы = Siz; едите = yiyorsunuz.'
+  },
+  {
+    q: 'Rusçada "restoran" kelimesi hangisidir?',
+    opts: ['Офис', 'Парк', 'Дом', 'Ресторан'],
+    ans: 3,
+    exp: 'Ресторан (restoran) — Türkçe ile aynı köken.'
+  },
+];
+
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  document.getElementById('quiz-total').textContent = questions.length;
+  document.getElementById('quiz-score').textContent = 0;
+  document.getElementById('quiz-result').classList.remove('show');
+
+  questions.forEach((q, qi) => {
+    const labels = ['A', 'B', 'C', 'D'];
+    const optsHtml = q.opts.map((o, oi) => `
+      <button class="option-btn" onclick="selectOpt(${qi}, ${oi}, this)">
+        <span class="option-badge">${labels[oi]}</span>${o}
+      </button>`).join('');
+
+    c.innerHTML += `
+      <div class="question-card" id="qcard-${qi}">
+        <div class="question-num">SORU ${qi+1} / ${questions.length}</div>
+        <div class="question-text">${q.q}</div>
+        <div class="options" id="opts-${qi}">${optsHtml}</div>
+        <div class="feedback" id="fb-${qi}"></div>
+      </div>`;
+  });
+}
+
+const userAns = {};
+function selectOpt(qi, oi, btn) {
+  const opts = document.querySelectorAll(`#opts-${qi} .option-btn`);
+  opts.forEach(b => b.classList.remove('correct-opt','wrong-opt'));
+  btn.classList.add(oi === questions[qi].ans ? 'correct-opt' : 'wrong-opt');
+  userAns[qi] = oi;
+}
+
+function checkAll() {
+  let score = 0;
+  questions.forEach((q, qi) => {
+    const card = document.getElementById('qcard-' + qi);
+    const fb   = document.getElementById('fb-' + qi);
+    const opts = document.querySelectorAll(`#opts-${qi} .option-btn`);
+    opts.forEach(b => { b.disabled = true; });
+
+    const chosen = userAns[qi];
+    if (chosen === undefined) {
+      // highlight correct
+      opts[q.ans].classList.add('correct-opt');
+      fb.textContent = '⚠ Cevaplamadın. Doğru: ' + q.opts[q.ans];
+      fb.className = 'feedback show no';
+    } else if (chosen === q.ans) {
+      score++;
+      card.classList.add('correct');
+      fb.textContent = '✓ Doğru! ' + q.exp;
+      fb.className = 'feedback show ok';
+    } else {
+      opts[q.ans].classList.add('correct-opt');
+      card.classList.add('wrong');
+      fb.textContent = '✗ Yanlış. ' + q.exp;
+      fb.className = 'feedback show no';
+    }
+  });
+  document.getElementById('quiz-score').textContent = score;
+  const res = document.getElementById('quiz-result');
+  document.getElementById('quiz-result-score').textContent = score + ' / ' + questions.length;
+  const pct = Math.round(score / questions.length * 100);
+  let msg = pct >= 90 ? '🎉 Harikasın Beyza' :
+            pct >= 70 ? '👍 Biraz daha çalışman gerek' :
+            pct >= 50 ? '📖 Gramer tekrarı yapıp tekrar denemeni istiyorum matmazel' :
+                        '💪 Sana paylaştığım tabloları tekrarlaman en iyisi olur. Daha yolun başındayız can sıkmak yok.';
+  document.getElementById('quiz-result-msg').textContent = msg;
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  Object.keys(userAns).forEach(k => delete userAns[k]);
+  buildQuiz();
+}
+
+/* ─── FILL-IN DATA ───────────────────────── */
+const fillItems = [
+  { before:'Я ', blank:'ем', after:' яблоко.', hint:'(Ben elma yiyorum — "yemek" fiili, 1. tekil)' },
+  { before:'Ты ', blank:'понимаешь', after:'?', hint:'(Sen anlıyor musun? — "anlamak" fiili, 2. tekil)' },
+  { before:'Где ', blank:'метро', after:'?', hint:'(Metro nerede? — toplu taşıma)' },
+  { before:'', blank:'Спасибо', after:'!', hint:'(Teşekkür ederim!)' },
+  { before:'Мы ', blank:'понимаем', after:'.', hint:'(Biz anlıyoruz — "anlamak" fiili, 1. çoğul)' },
+  { before:'Она ', blank:'ест', after:' яблоко.', hint:'(O elma yiyor — "yemek" fiili, 3. tekil)' },
+  { before:'', blank:'Привет', after:'! Как вы?', hint:'(Merhaba! Nasılsınız?)' },
+  { before:'Они ', blank:'понимают', after:'.', hint:'(Onlar anlıyor — "anlamak" fiili, 3. çoğul)' },
+  { before:'Вот ', blank:'там', after:', рядом s ploshadyu.', hint:'(Şurada, meydana yakın — "orada" anlamındaki kelime)' },
+  { before:'Вы ', blank:'едите', after:'?', hint:'(Siz yiyor musunuz? — "yemek" fiili, 2. çoğul)' },
+  { before:'Это ', blank:'яблоко', after:'.', hint:'(Bu elma. — meyve)' },
+  { before:'', blank:'Извините', after:'!', hint:'(Özür dilerim / Pardon!)' },
+];
+
+function buildFill() {
+  const c = document.getElementById('fill-container');
+  c.innerHTML = '';
+  document.getElementById('fill-result').classList.remove('show');
+
+  fillItems.forEach((item, i) => {
+    c.innerHTML += `
+      <div class="fill-card" id="fcard-${i}">
+        <div class="fill-num">CÜMLE ${i+1} / ${fillItems.length}</div>
+        <div class="fill-sentence">
+          <span class="rus-text">${item.before}</span><input
+            class="fill-input" id="finput-${i}"
+            type="text" autocomplete="off" spellcheck="false"
+            placeholder="..." /><span class="rus-text">${item.after}</span>
+        </div>
+        <div class="fill-hint">${item.hint}</div>
+        <div class="fill-feedback" id="ffb-${i}"></div>
+      </div>`;
+  });
+}
+
+function checkFill() {
+  let score = 0;
+  fillItems.forEach((item, i) => {
+    const inp = document.getElementById('finput-' + i);
+    const fb  = document.getElementById('ffb-' + i);
+    const val = inp.value.trim();
+    const ok  = val.toLowerCase() === item.blank.toLowerCase();
+    if (ok) {
+      score++;
+      inp.className = 'fill-input correct';
+      fb.textContent = '✓ Doğru!';
+      fb.className = 'fill-feedback ok';
+    } else {
+      inp.className = 'fill-input wrong';
+      fb.textContent = val === '' ? `✗ Boş bırakıldı. Doğru cevap: ${item.blank}` : `✗ Yanlış. Doğru cevap: ${item.blank}`;
+      fb.className = 'fill-feedback no';
+    }
+    inp.disabled = true;
+  });
+  const res = document.getElementById('fill-result');
+  document.getElementById('fill-result-score').textContent = score + ' / ' + fillItems.length;
+  const pct = Math.round(score / fillItems.length * 100);
+  let msg = pct >= 90 ? '🎉 Harikasın Beyza' :
+            pct >= 70 ? '👍 Biraz daha çalışman gerek' :
+            pct >= 50 ? '📖 Gramer tekrarı yapıp tekrar denemeni istiyorum matmazel' :
+                        '💪 Sana paylaştığım tabloları tekrarlaman en iyisi olur. Daha yolun başındayız can sıkmak yok.';
+  document.getElementById('fill-result-msg').textContent = msg;
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetFill() {
+  buildFill();
+}
+
+/* ─── INIT ───────────────────────────────── */
+buildQuiz();
+buildFill();
+</script>
+</body>
+</html>
